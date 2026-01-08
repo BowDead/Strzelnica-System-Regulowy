@@ -54,7 +54,7 @@
         <bpmn:outgoing>Flow_0rqsh0f</bpmn:outgoing>
       </bpmn:task>
       <bpmn:sequenceFlow id="Flow_1pccucj" name="no" sourceRef="Gateway_0x3325a" targetRef="Gateway_0x07ufd">
-        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=client_continue = false</bpmn:conditionExpression>
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(client_continue)</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:endEvent id="Event_1w7nlvu" name="Target practice end">
         <bpmn:incoming>Flow_04g4aex</bpmn:incoming>
@@ -63,7 +63,7 @@
         <bpmn:outgoing>Flow_1mzepow</bpmn:outgoing>
       </bpmn:startEvent>
       <bpmn:sequenceFlow id="Flow_0sizsfa" name="yes" sourceRef="Gateway_0x3325a" targetRef="Gateway_1blp2c3">
-        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=client_continue = true</bpmn:conditionExpression>
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=client_continue</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:exclusiveGateway id="Gateway_1blp2c3">
         <bpmn:incoming>Flow_08n2xw8</bpmn:incoming>

@@ -34,11 +34,11 @@
       <bpmn:outgoing>Flow_1e3gxkx</bpmn:outgoing>
     </bpmn:task>
     <bpmn:sequenceFlow id="Flow_169uaqx" name="false" sourceRef="Gateway_0za2uu4" targetRef="Gateway_12qh5dg">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=cancellation_confirmed = false</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(cancellation_confirmed)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0r0lw3h" sourceRef="Activity_0w4v6kq" targetRef="Gateway_0za2uu4" />
     <bpmn:sequenceFlow id="Flow_1vzfhv3" name="true" sourceRef="Gateway_0za2uu4" targetRef="Activity_1p4snti">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=cancellation_confirmed = true</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=cancellation_confirmed</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0v3p5du" name="No" sourceRef="Gateway_0jrqose" targetRef="Gateway_1bw0lcv">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=days_to_session &lt;= 7</bpmn:conditionExpression>

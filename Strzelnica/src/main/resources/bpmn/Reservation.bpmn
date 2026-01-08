@@ -63,26 +63,26 @@
     <bpmn:sequenceFlow id="Flow_0f36s03" sourceRef="task1" targetRef="Activity_09tnhha" />
     <bpmn:sequenceFlow id="Flow_1n2l0gd" sourceRef="Activity_09tnhha" targetRef="Gateway_077kjae" />
     <bpmn:sequenceFlow id="Flow_09qp54c" name="yes" sourceRef="Gateway_077kjae" targetRef="Activity_0azl6p5">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=dateAvailable == true</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=dateAvailable</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0oetn9e" name="no" sourceRef="Gateway_077kjae" targetRef="Activity_1bkl7if">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=dateAvailable == false</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(dateAvailable)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0444qod" sourceRef="Activity_0azl6p5" targetRef="Activity_0a351jh" />
     <bpmn:sequenceFlow id="Flow_0egp9fm" sourceRef="Activity_0a351jh" targetRef="Gateway_0l18l9j" />
     <bpmn:sequenceFlow id="Flow_1ghmr6l" name="no" sourceRef="Gateway_0l18l9j" targetRef="Activity_0u9s39z">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=positionsAndInstructors == false</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(positionsAndInstructors)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0s49wel" name="yes" sourceRef="Gateway_0l18l9j" targetRef="Activity_11xn1gq">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=positionsAndInstructors == true</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=positionsAndInstructors</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0mwaje1" sourceRef="Activity_0u9s39z" targetRef="Gateway_16fdfvl" />
     <bpmn:sequenceFlow id="Flow_14ummhv" sourceRef="Activity_11xn1gq" targetRef="Gateway_1h4vdow" />
     <bpmn:sequenceFlow id="Flow_0ip6xgq" name="reject" sourceRef="Gateway_1h4vdow" targetRef="Activity_0tpphos">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=accept == false</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(accept)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1fhko7e" name="accept" sourceRef="Gateway_1h4vdow" targetRef="Activity_0wcvn4k">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=accept == true</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=accept</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_14etuhc" sourceRef="Gateway_16fdfvl" targetRef="Event_1h8b057" />
     <bpmn:sequenceFlow id="Flow_01rk9sa" sourceRef="Activity_0tpphos" targetRef="Gateway_16fdfvl" />
