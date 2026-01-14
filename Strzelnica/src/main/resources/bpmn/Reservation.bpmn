@@ -101,7 +101,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="decideAboutReservation" />
         <zeebe:ioMapping>
-          <zeebe:output source="=true" target="accept" />
+          <zeebe:output source="=accept" target="accept" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0s49wel</bpmn:incoming>
@@ -111,7 +111,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="checkAvailablePositionsAndInstructors" />
         <zeebe:ioMapping>
-          <zeebe:output source="=true" target="positionsAndInstructors" />
+          <zeebe:output source="=positionsAndInstructors" target="positionsAndInstructors" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0444qod</bpmn:incoming>
@@ -121,10 +121,16 @@
       <bpmn:incoming>Flow_0f36s03</bpmn:incoming>
       <bpmn:outgoing>Flow_1n2l0gd</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Activity_1326pjp" name="authorize payment">
+    <bpmn:serviceTask id="Activity_1326pjp" name="authorize payment">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="authorize-payment" />
+        <zeebe:ioMapping>
+            <zeebe:output source="=clientAction" target="clientAction" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1q6akrq</bpmn:incoming>
       <bpmn:outgoing>Flow_0ds5x6k</bpmn:outgoing>
-    </bpmn:task>
+    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1ehmsrr" sourceRef="Activity_1rxnzad" targetRef="Event_10f0528" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
