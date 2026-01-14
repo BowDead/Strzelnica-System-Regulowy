@@ -15,13 +15,13 @@
         <zeebe:properties />
       </bpmn:extensionElements>
     </bpmn:sequenceFlow>
-    <bpmn:task id="Activity_11547o4" name="check gun license or training certificate">
+    <bpmn:serviceTask id="Activity_11547o4" name="check gun license or training certificate">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="check-permission-worker" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0lqdv37</bpmn:incoming>
       <bpmn:outgoing>Flow_11566z5</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0r1ul6z">
-        <bpmn:targetRef>DataStoreReference_020vmzp</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:task>
+    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0lqdv37" name="adult" sourceRef="isAdult" targetRef="Activity_11547o4">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=age &gt;= 18</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -65,7 +65,7 @@
       <bpmn:errorEventDefinition id="ErrorEventDefinition_1166f8d" errorRef="Error_1m9h21g" />
     </bpmn:endEvent>
   </bpmn:process>
-  <bpmn:error id="Error_1m9h21g" name="error_reject" errorCode="=reject" />
+  <bpmn:error id="Error_1m9h21g" name="error_reject" errorCode="reject" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0j4ot4c">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
