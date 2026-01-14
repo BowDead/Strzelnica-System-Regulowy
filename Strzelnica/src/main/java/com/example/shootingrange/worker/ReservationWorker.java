@@ -12,12 +12,11 @@ import java.util.Map;
 public class ReservationWorker {
 
     @JobWorker(type = "searchDateToReservation")
-    public Map<String, Object> searchDateToReservation(
-            @Variable(name = "sessionDate") String sessionDateStr){
+    public Map<String, Object> searchDateToReservation(@Variable(name = "sessionDate") String sessionDateStr){
 
         Map<String, Object> result = new HashMap<>();
         LocalDate sessionDate = LocalDate.parse(sessionDateStr);
-        boolean dateAvailable = false;
+        boolean dateAvailable = true;
         boolean clientAcceptsDate = Math.random() < 0.5;
 
         if (dateAvailable == false && clientAcceptsDate) {
@@ -31,11 +30,8 @@ public class ReservationWorker {
 
         result.put("dateAvailable", dateAvailable);
         result.put("sessionDate", sessionDate.toString());
-
         return result;
     }
-
-
 
     // Decyzja o rezerwacji
     @JobWorker(type = "decideAboutReservation")
@@ -47,23 +43,27 @@ public class ReservationWorker {
 
     // Autoryzacja płatności
     @JobWorker(type = "authorize-payment")
-    public void authorizePayment() {
+    public Map<String, Object> authorizePayment(@Variable(name = "clientAction") String clientAction) {
         System.out.println("Pomyślna autoryzacja zapłaty za sesję");
+        return Map.of("clientAction", "session");
     }
 
     // Sprawdzenie dostępności pozycji i instruktorów
     @JobWorker(type = "checkAvailablePositionsAndInstructors")
     public Map<String, Object> checkPositionsAndInstructors() {
         boolean positionsAndInstructors = true;
-        System.out.println("Przydzielenie pozycji i instruktora: " + positionsAndInstructors);
+        System.out.println("Pozycja i instruktor dostępny: " + positionsAndInstructors);
         return Map.of("positionsAndInstructors", positionsAndInstructors);
     }
 
     // Sprawdzenie akcji klienta
     @JobWorker(type = "client_action_check")
-    public Map<String, Object> clientActionCheck() {
-        boolean clientActionAccepted = true;
-        System.out.println("Akcja klienta zaakceptowana: " + clientActionAccepted);
-        return Map.of("clientActionAccepted", clientActionAccepted);
+    public Map<String, Object> clientActionCheck(@Variable(name = "clientAction") String clientAction,
+                                                 @Variable(name = "acceptReservation") Boolean acceptReservation) {
+        System.out.println("Akcja klienta [" + clientAction + "]");
+        if (clientAction.equals("reserve") && !acceptReservation) {
+            return Map.of("clientActionAccepted", true);
+        }
+        return Map.of("clientActionAccepted", false);
     }
 }
