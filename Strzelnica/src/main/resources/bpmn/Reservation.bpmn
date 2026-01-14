@@ -107,10 +107,16 @@
       <bpmn:incoming>Flow_0s49wel</bpmn:incoming>
       <bpmn:outgoing>Flow_14ummhv</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:task id="Activity_0a351jh" name="check available positions and instructors">
+    <bpmn:serviceTask id="Activity_0a351jh" name="check available positions and instructors">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="checkAvailablePositionsAndInstructors" />
+        <zeebe:ioMapping>
+          <zeebe:output source="=true" target="positionsAndInstructors" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0444qod</bpmn:incoming>
       <bpmn:outgoing>Flow_0egp9fm</bpmn:outgoing>
-    </bpmn:task>
+    </bpmn:serviceTask>
     <bpmn:task id="Activity_09tnhha" name="check date is available">
       <bpmn:incoming>Flow_0f36s03</bpmn:incoming>
       <bpmn:outgoing>Flow_1n2l0gd</bpmn:outgoing>
