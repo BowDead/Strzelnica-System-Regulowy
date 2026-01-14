@@ -1,17 +1,42 @@
 package com.example.shootingrange.worker;
 
-
 import io.camunda.client.annotation.JobWorker;
 import io.camunda.client.annotation.Variable;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Component
 public class RegistrationWorkers {
-    @JobWorker(type = "check-age-worker") // Typ musi być taki sam jak w BPMN
-    public Map<String, Object> checkAge(@Variable(name = "age") Integer age) {
-        boolean isAdult = age != null && age >= 18;
-        return Map.of("isAdult", isAdult); // Zmienna wróci do procesu i ustawi bramkę
+
+    private static final AtomicInteger clientIdCounter = new AtomicInteger(0);
+
+    // Sprawdzenie stanu rejestracji klienta
+    @JobWorker(type = "Check_client_registration")
+    public Map<String, Object> checkClientRegistration(@Variable(name = "clientId") Integer clientId) {
+        boolean clientRegistered;
+        if (clientId == null) {
+            clientId = clientIdCounter.incrementAndGet();
+            clientRegistered = false;
+            System.out.println("Nowy klient [ID: " + clientId + "]");
+        } else {
+            clientRegistered = true;
+            System.out.println("Klient jest zarejestrowany [ID: " + clientId + "]");
+        }
+
+        return Map.of(
+                "clientRegistered", clientRegistered,
+                "clientId", clientId
+        );
+    }
+
+    // Sprawdzenie pozwolenia
+    @JobWorker(type = "check-permission-worker")
+    public Map<String, Object> checkPermission(@Variable(name = "hasLicense") Boolean hasLicense,
+                                               @Variable(name = "hasTraining") Boolean hasTraining) {
+        boolean permission = Boolean.TRUE.equals(hasLicense) || Boolean.TRUE.equals(hasTraining);
+        System.out.println("Sprawdzanie pozwolenia: " + permission);
+        return Map.of("permission", permission);
     }
 }
