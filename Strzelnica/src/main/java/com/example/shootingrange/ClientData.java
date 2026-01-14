@@ -14,6 +14,7 @@ public class ClientData {
         variables.put("hasLicense", true);
         variables.put("hasTraining", false);
         variables.put("sessionDate", LocalDate.of(2026, 1, 14).toString());
+        variables.put("acceptReservation", false);
 
         return variables;
     }
