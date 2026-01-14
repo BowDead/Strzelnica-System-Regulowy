@@ -1,5 +1,6 @@
 package com.example.shootingrange;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ public class ClientData {
         variables.put("age", 20);
         variables.put("hasLicense", true);
         variables.put("hasTraining", false);
+        variables.put("sessionDate", LocalDate.of(2026, 1, 14).toString());
 
         return variables;
     }
