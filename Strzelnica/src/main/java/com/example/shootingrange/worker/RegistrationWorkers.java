@@ -30,4 +30,13 @@ public class RegistrationWorkers {
                 "clientId", clientId
         );
     }
+
+    // Sprawdzenie pozwolenia
+    @JobWorker(type = "check-permission-worker")
+    public Map<String, Object> checkPermission(@Variable(name = "hasLicense") Boolean hasLicense,
+                                               @Variable(name = "hasTraining") Boolean hasTraining) {
+        boolean permission = Boolean.TRUE.equals(hasLicense) || Boolean.TRUE.equals(hasTraining);
+        System.out.println("Sprawdzanie pozwolenia: " + permission);
+        return Map.of("permission", permission);
+    }
 }
