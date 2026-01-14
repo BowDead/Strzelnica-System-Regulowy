@@ -10,7 +10,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 
 import java.util.Map;
 
-@SpringBootApplication(scanBasePackages = "com.example.shootingrange")
+//@SpringBootApplication(scanBasePackages = "com.example.shootingrange")
 @Deployment(resources = "classpath:bpmn/*.bpmn")
 public class RegistrationWorkersTest {
 
@@ -27,7 +27,7 @@ public class RegistrationWorkersTest {
         Map<String, Object> variables = ClientData.getClientVariables();
 
         client.newCreateInstanceCommand()
-                .bpmnProcessId("Process_0j4ot4c")// ID bpmn
+                .bpmnProcessId(" ")// ID bpmn
                 .latestVersion()
                 .variables(variables)
                 .send();
