@@ -1,28 +1,69 @@
 package com.example.shootingrange.worker;
 
 import io.camunda.client.annotation.JobWorker;
+import io.camunda.client.annotation.Variable;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class ReservationWorker {
 
-    // Obsługuje zadanie wyszukiwania terminu
     @JobWorker(type = "searchDateToReservation")
-    public Map<String, Object> searchDate() {
-        boolean available = true;
+    public Map<String, Object> searchDateToReservation(@Variable(name = "sessionDate") String sessionDateStr){
 
-        return Map.of("dateAvailable", available);
+        Map<String, Object> result = new HashMap<>();
+        LocalDate sessionDate = LocalDate.parse(sessionDateStr);
+        boolean dateAvailable = true;
+        boolean clientAcceptsDate = Math.random() < 0.5;
+
+        if (dateAvailable == false && clientAcceptsDate) {
+            System.out.println("Data niedostępna [data: " + sessionDate + "]");
+            sessionDate = sessionDate.plusDays(1);
+        }
+        else {
+            System.out.println("Data dostępna: " + sessionDate + "\n");
+            dateAvailable = true;
+        }
+
+        result.put("dateAvailable", dateAvailable);
+        result.put("sessionDate", sessionDate.toString());
+        return result;
     }
 
+    // Decyzja o rezerwacji
     @JobWorker(type = "decideAboutReservation")
     public Map<String, Object> decideAboutReservation() {
-        return Map.of("accept", true);
+        boolean accept = true;
+        System.out.println("Akceptacja rezerwacji: " + accept);
+        return Map.of("accept", accept);
     }
 
+    // Autoryzacja płatności
     @JobWorker(type = "authorize-payment")
-    public void authorizePayment() {
-        System.out.println("Autoryzacja płatności przebiegła pomyślnie.");
+    public Map<String, Object> authorizePayment(@Variable(name = "clientAction") String clientAction) {
+        System.out.println("Pomyślna autoryzacja zapłaty za sesję");
+        return Map.of("clientAction", "session");
+    }
+
+    // Sprawdzenie dostępności pozycji i instruktorów
+    @JobWorker(type = "checkAvailablePositionsAndInstructors")
+    public Map<String, Object> checkPositionsAndInstructors() {
+        boolean positionsAndInstructors = true;
+        System.out.println("Pozycja i instruktor dostępny: " + positionsAndInstructors);
+        return Map.of("positionsAndInstructors", positionsAndInstructors);
+    }
+
+    // Sprawdzenie akcji klienta
+    @JobWorker(type = "client_action_check")
+    public Map<String, Object> clientActionCheck(@Variable(name = "clientAction") String clientAction,
+                                                 @Variable(name = "acceptReservation") Boolean acceptReservation) {
+        System.out.println("Akcja klienta [" + clientAction + "]");
+        if (clientAction.equals("reserve") && !acceptReservation) {
+            return Map.of("clientActionAccepted", true);
+        }
+        return Map.of("clientActionAccepted", false);
     }
 }
